@@ -1,26 +1,8 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <title>Index</title>
-<!--    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="/scripts/bootstrap.min.js"></script>
-    <script src="/scripts/jquery-3.3.1.min.js"></script>
-    <link href="/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
-    <script src="/scripts/dataTables.bootstrap4.min.js"></script>
-    <script src="/scripts/jquery.dataTables.min.js"></script>-->
-
-<!--
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    -->
-
-    <!---->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -31,7 +13,7 @@
     <!---->
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#dataTable').DataTable({
+            var table = $('#dataTable').DataTable({
                 "ajax": {
                     "url": "/api/employee",
                     "type": "GET",
@@ -44,9 +26,15 @@
                     { "data": "Position" },
                     { "data": "Office" },
                     { "data": "Age" },
-                    { "data": "Salary" }
+                    { "data": "Salary" },
+                    {"defaultContent": "<button>Click!</button>"}
                 ]
             });
+
+            $('#dataTable tbody').on( 'click', 'button', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                alert( data[1] +"'s salary is: "+ data[ 4 ] );
+            } );
         });
     </script>
 </head>
@@ -62,6 +50,7 @@
             <th>Office</th>
             <th>Age</th>
             <th>Salary</th>
+            <th>action</th>
         </tr>
         </thead>
     </table>
